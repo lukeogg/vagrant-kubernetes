@@ -10,16 +10,16 @@ Vagrant.configure("2") do |config|
       echo "$IP_NW$((IP_START+2)) worker-node02" >> /etc/hosts
   SHELL
 
-  config.vm.box = "bento/ubuntu-22.04"
+  config.vm.box = "generic/ubuntu2204"
   config.vm.box_check_update = true
 
   config.vm.define "master" do |master|
     master.vm.hostname = "master-node"
     master.vm.network "private_network", ip: IP_NW + "#{IP_START}"
     #master.vm.network "public_network" #bridge: "en1: Wi-Fi (AirPort)" 
-    master.vm.provider "virtualbox" do |vb|
+    master.vm.provider "libvert" do |vb|
         vb.memory = 32768
-        vb.cpus = 4
+        vb.cpus = 8
     end
 
     master.vm.provision "file", source: "~/.docker/config.json", destination: "/home/vagrant/.docker/config.json"
@@ -38,9 +38,9 @@ Vagrant.configure("2") do |config|
     node.vm.hostname = "worker-node0#{i}"
     node.vm.network "private_network", ip: IP_NW + "#{IP_START + i}"
     #node.vm.network "public_network"
-    node.vm.provider "virtualbox" do |vb|
+    node.vm.provider "libvert" do |vb|
         vb.memory = 32768
-        vb.cpus = 4
+        vb.cpus = 8
     end
 
     node.vm.provision "file", source: "~/.docker/config.json", destination: "/home/vagrant/.docker/config.json"
