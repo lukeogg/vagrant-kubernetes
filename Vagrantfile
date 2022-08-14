@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
         vb.cpus = 4
     end
 
-    master.vm.provision "file", source: "~/.docker/config.json", destination: "~/.docker/config.json"
+    master.vm.provision "file", source: "~/.docker/config.json", destination: "/home/vagrant/.docker/config.json"
     master.vm.provision "shell" do |s|
       s.inline = "mkdir -p /var/lib/kubelet; cp /home/vagrant/.docker/config.json /var/lib/kubelet/config.json"
       s.privileged = true
@@ -43,9 +43,9 @@ Vagrant.configure("2") do |config|
         vb.cpus = 4
     end
 
-    node.vm.provision "file", source: "~/.docker/config.json", destination: "~/.docker/config.json"
+    node.vm.provision "file", source: "~/.docker/config.json", destination: "/home/vagrant/.docker/config.json"
     node.vm.provision "shell" do |s|
-      s.inline = "mkdir -p /var/lib/kubelet; /home/vagrant/.docker/config.json /var/lib/kubelet/config.json"
+      s.inline = "mkdir -p /var/lib/kubelet; cp /home/vagrant/.docker/config.json /var/lib/kubelet/config.json"
       s.privileged = true
     end
 
