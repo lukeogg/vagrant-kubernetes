@@ -49,7 +49,6 @@ Vagrant.configure("2") do |config|
       s.privileged = true
     end
 
-    node.vm.provision "file", source: "~/.docker/config.json", destination: "/var/lib/kubelet/config.json"
     node.vm.provision "shell", path: "scripts/common.sh"
     node.vm.provision "shell", path: "scripts/node.sh"
   end
