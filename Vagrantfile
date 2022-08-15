@@ -19,6 +19,7 @@ Vagrant.configure("2") do |config|
     master.vm.hostname = "master-node"
     master.vm.network "private_network", ip: IP_NW + "#{IP_START}"
     #master.vm.network "public_network" #bridge: "en1: Wi-Fi (AirPort)" 
+    master.vm.synced_folder ".", "/vagrant", type: 'nfs', nfs_udp: false, nfs_version: 4
     master.vm.provider "libvert" do |vb|
         vb.memory = 32768
         vb.cpus = 8
@@ -39,8 +40,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "node0#{i}" do |node|
     node.vm.hostname = "worker-node0#{i}"
     node.vm.network "private_network", ip: IP_NW + "#{IP_START + i}"
-    node.vm.synced_folder ".", "/vagrant"
-    #  config.vm.synced_folder './', '/vagrant', type: 'nfs', nfs_udp: false, nfs_version: 4
+    node.vm.synced_folder ".", "/vagrant", type: 'nfs', nfs_udp: false, nfs_version: 4
     #node.vm.network "public_network"
     node.vm.provider "libvert" do |vb|
         vb.memory = 32768
