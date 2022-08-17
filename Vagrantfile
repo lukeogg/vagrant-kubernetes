@@ -15,6 +15,8 @@ Vagrant.configure("2") do |config|
       echo "$IP_NW$((IP_START)) master-node" >> /etc/hosts
       echo "$IP_NW$((IP_START+1)) worker-node01" >> /etc/hosts
       echo "$IP_NW$((IP_START+2)) worker-node02" >> /etc/hosts
+      echo "$IP_NW$((IP_START+3)) gpu-node01" >> /etc/hosts
+      echo "$IP_NW$((IP_START+4)) gpu-node02" >> /etc/hosts
   SHELL
 
   config.vm.box = "generic/ubuntu2204"
@@ -51,8 +53,8 @@ Vagrant.configure("2") do |config|
 
     node.vm.synced_folder ".", "/vagrant", type: 'nfs', nfs_udp: false, nfs_version: 4
     node.vm.provider :libvirt do |vb|
-      vb.memory = 32768
-      vb.cpus = 16
+      vb.memory = 24576
+      vb.cpus = 8
       vb.cpu_mode = 'host-passthrough'
     end
 
@@ -66,6 +68,8 @@ Vagrant.configure("2") do |config|
     node.vm.provision "shell", path: "scripts/node.sh"
   end
 
+  end
+
   # Setup GPU Nodes
   config.vm.define "gpu-node01" do |node|
     node.vm.hostname = "gpu-node01"
@@ -74,8 +78,8 @@ Vagrant.configure("2") do |config|
 
     node.vm.synced_folder ".", "/vagrant", type: 'nfs', nfs_udp: false, nfs_version: 4
     node.vm.provider :libvirt do |vb|
-      vb.memory = 32768
-      vb.cpus = 16
+      vb.memory = 24576
+      vb.cpus = 8
       vb.cpu_mode = 'host-passthrough'
       vb.pci :bus => '0x01', :slot => '0x00', :function => '0x0'
     end
@@ -97,8 +101,8 @@ Vagrant.configure("2") do |config|
 
     node.vm.synced_folder ".", "/vagrant", type: 'nfs', nfs_udp: false, nfs_version: 4
     node.vm.provider :libvirt do |vb|
-      vb.memory = 32768
-      vb.cpus = 16
+      vb.memory = 24576
+      vb.cpus = 8
       vb.cpu_mode = 'host-passthrough'
       vb.pci :bus => '0x02', :slot => '0x00', :function => '0x0'
     end
@@ -113,6 +117,4 @@ Vagrant.configure("2") do |config|
     node.vm.provision "shell", path: "scripts/node.sh"
   end
 
-
-  end
 end 
