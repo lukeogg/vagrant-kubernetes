@@ -66,7 +66,7 @@ Vagrant.configure("2") do |config|
     node.vm.provision "shell", path: "scripts/node.sh"
   end
 
-  Setup GPU Nodes
+  # Setup GPU Nodes
   config.vm.define "gpu-node01" do |node|
     node.vm.hostname = "gpu-node01"
     node.vm.network "private_network", ip: IP_NW + "#{IP_START + NUM_WORKER_NODES + 1}"
