@@ -21,6 +21,16 @@ OS="xUbuntu_20.04"
 
 VERSION="1.23"
 
+# too many files...
+
+sudo sysctl fs.inotify.max_user_watches=524288
+sudo sysctl fs.inotify.max_user_instances=512
+
+cat << EOF | sudo tee -a /etc/sysctl.conf
+fs.inotify.max_user_watches = 524288
+fs.inotify.max_user_instances = 512
+EOF
+
 # Create the .conf file to load the modules at bootup
 cat <<EOF | sudo tee /etc/modules-load.d/crio.conf
 overlay
