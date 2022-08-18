@@ -35,6 +35,8 @@ Vagrant.configure("2") do |config|
     end
 
     master.vm.provision "file", source: "~/.docker/config.json", destination: "/home/vagrant/.docker/config.json"
+    master.vm.provision "file", source: "scripts/config.toml", destination: "/home/vagrant/config.toml"
+    master.vm.provision "file", source: "scripts/hosts.toml", destination: "/home/vagrant/hosts.toml"
     master.vm.provision "shell" do |s|
       s.inline = "mkdir -p /var/lib/kubelet; cp /home/vagrant/.docker/config.json /var/lib/kubelet/config.json"
       s.privileged = true
@@ -56,11 +58,13 @@ Vagrant.configure("2") do |config|
     node.vm.synced_folder ".", "/vagrant", type: 'nfs', nfs_udp: false, nfs_version: 4
     node.vm.provider :libvirt do |vb|
       vb.memory = 24576
-      vb.cpus = 8
+      vb.cpus = 16
       vb.cpu_mode = 'host-passthrough'
     end
 
     node.vm.provision "file", source: "~/.docker/config.json", destination: "/home/vagrant/.docker/config.json"
+    node.vm.provision "file", source: "scripts/config.toml", destination: "/home/vagrant/config.toml"
+    node.vm.provision "file", source: "scripts/hosts.toml", destination: "/home/vagrant/hosts.toml"
     node.vm.provision "shell" do |s|
       s.inline = "mkdir -p /var/lib/kubelet; cp /home/vagrant/.docker/config.json /var/lib/kubelet/config.json"
       s.privileged = true
@@ -81,12 +85,14 @@ Vagrant.configure("2") do |config|
     node.vm.synced_folder ".", "/vagrant", type: 'nfs', nfs_udp: false, nfs_version: 4
     node.vm.provider :libvirt do |vb|
       vb.memory = 24576
-      vb.cpus = 8
+      vb.cpus = 16
       vb.cpu_mode = 'host-passthrough'
       vb.pci :bus => '0x01', :slot => '0x00', :function => '0x0'
     end
 
     node.vm.provision "file", source: "~/.docker/config.json", destination: "/home/vagrant/.docker/config.json"
+    node.vm.provision "file", source: "scripts/config.toml", destination: "/home/vagrant/config.toml"
+    node.vm.provision "file", source: "scripts/hosts.toml", destination: "/home/vagrant/hosts.toml"
     node.vm.provision "shell" do |s|
       s.inline = "mkdir -p /var/lib/kubelet; cp /home/vagrant/.docker/config.json /var/lib/kubelet/config.json"
       s.privileged = true
@@ -106,12 +112,14 @@ Vagrant.configure("2") do |config|
     node.vm.synced_folder ".", "/vagrant", type: 'nfs', nfs_udp: false, nfs_version: 4
     node.vm.provider :libvirt do |vb|
       vb.memory = 24576
-      vb.cpus = 8
+      vb.cpus = 16
       vb.cpu_mode = 'host-passthrough'
       vb.pci :bus => '0x02', :slot => '0x00', :function => '0x0'
     end
 
     node.vm.provision "file", source: "~/.docker/config.json", destination: "/home/vagrant/.docker/config.json"
+    node.vm.provision "file", source: "scripts/gpu-config.toml", destination: "/home/vagrant/config.toml"
+    node.vm.provision "file", source: "scripts/hosts.toml", destination: "/home/vagrant/hosts.toml"
     node.vm.provision "shell" do |s|
       s.inline = "mkdir -p /var/lib/kubelet; cp /home/vagrant/.docker/config.json /var/lib/kubelet/config.json"
       s.privileged = true
