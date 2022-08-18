@@ -35,10 +35,10 @@ Vagrant.configure("2") do |config|
     end
 
     master.vm.provision "file", source: "~/.docker/config.json", destination: "/home/vagrant/.docker/config.json"
-    master.vm.provision "file", source: "scripts/config.toml", destination: "/home/vagrant/config.toml"
-    master.vm.provision "file", source: "scripts/hosts.toml", destination: "/home/vagrant/hosts.toml"
+    master.vm.provision "file", source: "scripts/daemon.json", destination: "/home/vagrant/daemon.json"
     master.vm.provision "shell" do |s|
       s.inline = "mkdir -p /var/lib/kubelet; cp /home/vagrant/.docker/config.json /var/lib/kubelet/config.json"
+      s.inline = "mkdir -p /etc/docker/; cp /home/vagrant/daemon.json /etc/docker/daemon.json"
       s.privileged = true
     end
 
@@ -63,10 +63,10 @@ Vagrant.configure("2") do |config|
     end
 
     node.vm.provision "file", source: "~/.docker/config.json", destination: "/home/vagrant/.docker/config.json"
-    node.vm.provision "file", source: "scripts/config.toml", destination: "/home/vagrant/config.toml"
-    node.vm.provision "file", source: "scripts/hosts.toml", destination: "/home/vagrant/hosts.toml"
+    node.vm.provision "file", source: "scripts/daemon.json", destination: "/home/vagrant/daemon.json"
     node.vm.provision "shell" do |s|
       s.inline = "mkdir -p /var/lib/kubelet; cp /home/vagrant/.docker/config.json /var/lib/kubelet/config.json"
+      s.inline = "mkdir -p /etc/docker/; cp /home/vagrant/daemon.json /etc/docker/daemon.json"
       s.privileged = true
     end
 
@@ -91,10 +91,10 @@ Vagrant.configure("2") do |config|
     end
 
     node.vm.provision "file", source: "~/.docker/config.json", destination: "/home/vagrant/.docker/config.json"
-    node.vm.provision "file", source: "scripts/config.toml", destination: "/home/vagrant/config.toml"
-    node.vm.provision "file", source: "scripts/hosts.toml", destination: "/home/vagrant/hosts.toml"
+    node.vm.provision "file", source: "scripts/daemon.json", destination: "/home/vagrant/daemon.json"
     node.vm.provision "shell" do |s|
       s.inline = "mkdir -p /var/lib/kubelet; cp /home/vagrant/.docker/config.json /var/lib/kubelet/config.json"
+      s.inline = "mkdir -p /etc/docker/; cp /home/vagrant/daemon.json /etc/docker/daemon.json"
       s.privileged = true
     end
 
@@ -118,10 +118,10 @@ Vagrant.configure("2") do |config|
     end
 
     node.vm.provision "file", source: "~/.docker/config.json", destination: "/home/vagrant/.docker/config.json"
-    node.vm.provision "file", source: "scripts/gpu-config.toml", destination: "/home/vagrant/config.toml"
-    node.vm.provision "file", source: "scripts/hosts.toml", destination: "/home/vagrant/hosts.toml"
+    node.vm.provision "file", source: "scripts/daemon.json", destination: "/home/vagrant/daemon.json"
     node.vm.provision "shell" do |s|
       s.inline = "mkdir -p /var/lib/kubelet; cp /home/vagrant/.docker/config.json /var/lib/kubelet/config.json"
+      s.inline = "mkdir -p /etc/docker/; cp /home/vagrant/daemon.json /etc/docker/daemon.json"
       s.privileged = true
     end
 
