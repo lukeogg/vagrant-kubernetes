@@ -25,6 +25,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "master" do |master|
     master.vm.hostname = "master-node"
     master.vm.network "private_network", ip: IP_NW + "#{IP_START}"
+    master.vm.network "public_network", dev: "enp7s0"
 
     master.vm.synced_folder ".", "/vagrant", type: 'nfs', nfs_udp: false, nfs_version: 4
     master.vm.provider :libvirt do |vb|
@@ -91,7 +92,7 @@ Vagrant.configure("2") do |config|
     end
 
     node.vm.provision "file", source: "~/.docker/config.json", destination: "/home/vagrant/.docker/config.json"
-    node.vm.provision "file", source: "scripts/daemon.json", destination: "/home/vagrant/daemon.json"
+    node.vm.provision "file", source: "scripts/gpu-daemon.json", destination: "/home/vagrant/daemon.json"
     node.vm.provision "shell" do |s|
       s.inline = "mkdir -p /var/lib/kubelet; cp /home/vagrant/.docker/config.json /var/lib/kubelet/config.json"
       s.inline = "mkdir -p /etc/docker/; cp /home/vagrant/daemon.json /etc/docker/daemon.json"
@@ -118,7 +119,7 @@ Vagrant.configure("2") do |config|
     end
 
     node.vm.provision "file", source: "~/.docker/config.json", destination: "/home/vagrant/.docker/config.json"
-    node.vm.provision "file", source: "scripts/daemon.json", destination: "/home/vagrant/daemon.json"
+    node.vm.provision "file", source: "scripts/gpu-daemon.json", destination: "/home/vagrant/daemon.json"
     node.vm.provision "shell" do |s|
       s.inline = "mkdir -p /var/lib/kubelet; cp /home/vagrant/.docker/config.json /var/lib/kubelet/config.json"
       s.inline = "mkdir -p /etc/docker/; cp /home/vagrant/daemon.json /etc/docker/daemon.json"
