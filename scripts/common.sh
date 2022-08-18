@@ -39,40 +39,39 @@ EOF
 
 sudo sysctl --system
 
-curl -L -O https://github.com/containerd/containerd/releases/download/v1.6.8/containerd-1.6.8-linux-amd64.tar.gz
-sudo tar Cxzvf /usr/local containerd-1.6.8-linux-amd64.tar.gz
+# curl -L -O https://github.com/containerd/containerd/releases/download/v1.6.8/containerd-1.6.8-linux-amd64.tar.gz
+# sudo tar Cxzvf /usr/local containerd-1.6.8-linux-amd64.tar.gz
 
-curl -L -O  https://raw.githubusercontent.com/containerd/containerd/main/containerd.service
+# curl -L -O  https://raw.githubusercontent.com/containerd/containerd/main/containerd.service
 
-sudo mkdir -p /usr/local/lib/systemd/system
-sudo cp containerd.service /usr/local/lib/systemd/system/containerd.service
-sudo systemctl daemon-reload
-sudo systemctl enable --now containerd
+# sudo mkdir -p /usr/local/lib/systemd/system
+# sudo cp containerd.service /usr/local/lib/systemd/system/containerd.service
+# sudo systemctl daemon-reload
+# sudo systemctl enable --now containerd
 
-curl -O https://github.com/opencontainers/runc/releases/download/v1.1.3/runc.amd64
-sudo install -m 755 runc.amd64 /usr/local/sbin/runc
+# curl -O https://github.com/opencontainers/runc/releases/download/v1.1.3/runc.amd64
+# sudo install -m 755 runc.amd64 /usr/local/sbin/runc
 
-curl -O -L https://github.com/containernetworking/plugins/releases/download/v1.1.1/cni-plugins-linux-amd64-v1.1.1.tgz
-sudo mkdir -p /opt/cni/bin
-sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.1.1.tgz
+# curl -O -L https://github.com/containernetworking/plugins/releases/download/v1.1.1/cni-plugins-linux-amd64-v1.1.1.tgz
+# sudo mkdir -p /opt/cni/bin
+# sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.1.1.tgz
 
-# sudo apt-get update
-# sudo apt-get install -y \
-#   ca-certificates \
-#   curl \
-#   gnupg \
-#   lsb-release
+sudo apt-get update
+sudo apt-get install -y \
+  ca-certificates \
+  curl \
+  gnupg \
+  lsb-release
 
-# sudo mkdir -p /etc/apt/keyrings
-# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
-# echo \
-#   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-#   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# sudo apt-get update
-# #sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-#sudo apt-get install -y containerd.io
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 mkdir -p /etc/containerd
 cp /home/vagrant/config.toml /etc/containerd/config.toml
