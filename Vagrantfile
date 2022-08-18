@@ -94,6 +94,8 @@ Vagrant.configure("2") do |config|
 
     node.vm.provision "shell", path: "scripts/common.sh"
     node.vm.provision "shell", path: "scripts/node.sh"
+    node.vm.provision "shell", path: "scripts/gpu-drivers.sh"
+    node.vm.provision :reload
   end
 
   config.vm.define "gpu-node02" do |node|
@@ -117,6 +119,8 @@ Vagrant.configure("2") do |config|
 
     node.vm.provision "shell", path: "scripts/common.sh"
     node.vm.provision "shell", path: "scripts/node.sh"
+    node.vm.provision "shell", path: "scripts/gpu-drivers.sh"
+    node.vm.provision :reload
   end
 
 end 
