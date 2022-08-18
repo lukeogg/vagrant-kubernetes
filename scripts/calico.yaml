@@ -4464,6 +4464,8 @@ spec:
             # no effect. This should fall within `--cluster-cidr`.
             - name: CALICO_IPV4POOL_CIDR
               value: ${POD_CIDR}
+            - name: IP_AUTODETECTION_METHOD
+              value: cidr=10.0.0.0/24
             # Disable file logging so `kubectl logs` works.
             - name: CALICO_DISABLE_FILE_LOGGING
               value: "true"

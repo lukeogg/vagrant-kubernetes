@@ -40,6 +40,8 @@ Vagrant.configure("2") do |config|
       s.privileged = true
     end
 
+    master.vm.provision "file", source: "scripts/calico.yaml", destination: "/home/vagrant/calico.yaml"
+
     master.vm.provision "shell", path: "scripts/common.sh"
     master.vm.provision "shell", path: "scripts/master.sh"
   end
