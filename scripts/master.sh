@@ -37,9 +37,7 @@ chmod +x /vagrant/configs/join.sh
 kubeadm token create --print-join-command > /vagrant/configs/join.sh
 
 # Install Calico Network Plugin
-curl https://github.com/lukeogg/vagrant-kubernetes/blob/cf32a74eaa3e80747cd7680aec3f4f8d3a8ae073/scripts/calico.yaml -O
-
-envsubst "$POD_CIDR" < calico.yaml | kubectl apply -f -
+envsubst < calico.yaml | kubectl apply -f -
 
 
 sudo -i -u vagrant bash << EOF
