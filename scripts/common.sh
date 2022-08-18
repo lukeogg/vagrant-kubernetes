@@ -15,7 +15,7 @@ sudo swapoff -a
 (crontab -l 2>/dev/null; echo "@reboot /sbin/swapoff -a") | crontab - || true
 sudo apt-get update -y
 
-# Install docker/containerd Runtime
+# Set up firewals
 
 OS="xUbuntu_20.04"
 
@@ -39,22 +39,7 @@ EOF
 
 sudo sysctl --system
 
-# curl -L -O https://github.com/containerd/containerd/releases/download/v1.6.8/containerd-1.6.8-linux-amd64.tar.gz
-# sudo tar Cxzvf /usr/local containerd-1.6.8-linux-amd64.tar.gz
-
-# curl -L -O  https://raw.githubusercontent.com/containerd/containerd/main/containerd.service
-
-# sudo mkdir -p /usr/local/lib/systemd/system
-# sudo cp containerd.service /usr/local/lib/systemd/system/containerd.service
-# sudo systemctl daemon-reload
-# sudo systemctl enable --now containerd
-
-# curl -O https://github.com/opencontainers/runc/releases/download/v1.1.3/runc.amd64
-# sudo install -m 755 runc.amd64 /usr/local/sbin/runc
-
-# curl -O -L https://github.com/containernetworking/plugins/releases/download/v1.1.1/cni-plugins-linux-amd64-v1.1.1.tgz
-# sudo mkdir -p /opt/cni/bin
-# sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.1.1.tgz
+# Install docker/containerd Runtime
 
 sudo apt-get update
 sudo apt-get install -y \
@@ -73,12 +58,6 @@ echo \
 sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
-mkdir -p /etc/containerd
-cp /home/vagrant/config.toml /etc/containerd/config.toml
-mkdir -p /etc/containerd/certs.d/docker.io
-cp /home/vagrant/hosts.toml /etc/containerd/certs.d/docker.io/hosts.toml
-
-sudo systemctl restart containerd
 
 echo "Docker/containerd runtime installed susccessfully"
 
