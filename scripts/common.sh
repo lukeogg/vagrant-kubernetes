@@ -68,6 +68,10 @@ echo \
 sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
+sudo mkdir -p /var/lib/kubelet
+sudo cp /home/vagrant/.docker/config.json /var/lib/kubelet/config.json
+sudo mkdir -p /etc/docker/
+sudo cp /home/vagrant/daemon.json /etc/docker/daemon.json
 
 echo "Docker/containerd runtime installed susccessfully"
 
