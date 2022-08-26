@@ -22,6 +22,21 @@ Vagrant.configure("2") do |config|
   config.vm.box = "generic/ubuntu2204"
   config.vm.box_check_update = true
 
+  config.vm.define "registry" do |master|
+    master.vm.hostname = "registry"
+    master.vm.network "private_network", ip: "10.0.0.2"
+
+    master.vm.synced_folder "~/Projects/docker-registry/cache", "/registry", type: 'nfs', nfs_udp: false, nfs_version: 4
+    master.vm.provider :libvirt do |vb|
+      vb.driver = 'kvm'
+      vb.memory = 4096
+      vb.cpus = 2
+      vb.cpu_mode = 'host-passthrough'
+    end
+
+    master.vm.provision "shell", path: "scripts/registry.sh"
+  end
+
   config.vm.define "master" do |master|
     master.vm.hostname = "master-node"
     master.vm.network "private_network", ip: IP_NW + "#{IP_START}"
