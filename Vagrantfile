@@ -89,9 +89,10 @@ Vagrant.configure("2") do |config|
 
     node.vm.synced_folder ".", "/vagrant", type: 'nfs', nfs_udp: false, nfs_version: 4
     node.vm.provider :libvirt do |vb|
-      vb.memory = 24576
+      vb.memory = 32768
       vb.cpus = 16
       vb.cpu_mode = 'host-passthrough'
+      #vb.disk :disk, size: "128GB", primary: true
       vb.pci :bus => '0x01', :slot => '0x00', :function => '0x0'
     end
 
@@ -111,9 +112,10 @@ Vagrant.configure("2") do |config|
 
     node.vm.synced_folder ".", "/vagrant", type: 'nfs', nfs_udp: false, nfs_version: 4
     node.vm.provider :libvirt do |vb|
-      vb.memory = 24576
+      vb.memory = 32768
       vb.cpus = 16
       vb.cpu_mode = 'host-passthrough'
+      #vb.disk :disk, size: "128GB", primary: true
       vb.pci :bus => '0x02', :slot => '0x00', :function => '0x0'
     end
 
