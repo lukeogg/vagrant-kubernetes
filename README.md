@@ -1,6 +1,9 @@
 
-# Vagrantfile and Scripts to Automate Kubernetes Setup using Kubeadm [Practice Environment for CKA/CKAD and CKS Exams]
+# Vagrantfile and Scripts to Automate Kubernetes Setup using Kubeadm 
 
+- Useing this for Practice Environment for CKA/CKAD and CKS Exams
+- Using for test clusters for DKP and Kaptain/Kubeflow 
+- Also using for GPU clusters for ML workloads
 
 ## Prerequisites
 
