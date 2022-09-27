@@ -1,0 +1,10 @@
+{
+   "registry-mirrors": ["http://10.0.0.2:5000"],
+   "default-runtime": "nvidia",
+   "runtimes": {
+      "nvidia": {
+            "path": "/usr/bin/nvidia-container-runtime",
+            "runtimeArgs": []
+      }
+   }
+}
