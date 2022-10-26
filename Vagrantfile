@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
     master.vm.synced_folder ".", "/vagrant", type: 'nfs', nfs_udp: false, nfs_version: 4
     master.vm.provider :libvirt do |vb|
       vb.driver = 'kvm'
-      vb.memory = 32768
+      vb.memory = 16384
       vb.cpus = 16
       vb.cpu_mode = 'host-passthrough'
     end
